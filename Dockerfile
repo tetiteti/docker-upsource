@@ -12,6 +12,14 @@ RUN \
 COPY entry-point.sh /entry-point.sh
 
 RUN \
+    printf '%s\n%s\n%s\n%s\n' \
+    '* - memlock unlimited' \
+    '* - nofile 100000' \
+    '* - nproc 32768' \
+    '* - as unlimited' \
+    >> /etc/security/limits.conf
+
+RUN \
     export UPSOURCE_VERSION=3.5.3597 && \
     mkdir -p /usr/local && \
     mkdir -p /var/lib/upsource && \
